@@ -192,6 +192,7 @@
             this.txtCardSN.Name = "txtCardSN";
             this.txtCardSN.Size = new System.Drawing.Size(149, 20);
             this.txtCardSN.TabIndex = 32;
+            this.txtCardSN.Text = "0";
             // 
             // tbnReadOnce
             // 

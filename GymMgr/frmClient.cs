@@ -15,6 +15,14 @@ namespace GymMgr
 {
     public partial class frmClient : Form
     {
+        /// <summary>
+        /// Return true if current sn already exists
+        /// </summary>
+        public Func<string, bool> CardSnExists;
+
+        public Action<string> RemoveCardSnFromPrevious;
+
+
         public const string MatchEmailPattern =
             @"^(([\w-]+\.)+[\w-]+|([a-zA-Z]{1}|[\w-]{2,}))@"
      + @"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?
@@ -41,6 +49,28 @@ namespace GymMgr
 
         private void btnAction_Click(object sender, EventArgs e)
         {
+
+            var sn = txtCardSN.Text;
+            if (!string.IsNullOrEmpty(sn))
+            {
+                if (CardSnExists != null)
+                    if (CardSnExists(sn))
+                    {
+                        if (MessageBox.Show("הכרטיס כבר שימוש. האם לשייך מחדש?", "Validation Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            if (RemoveCardSnFromPrevious != null)
+                                RemoveCardSnFromPrevious(sn);
+                        }
+                        else
+                            return;
+                    }
+            }
+            else
+            {
+                txtCardSN.Text = "0";
+            }
+
+
             if (Controls.OfType<TextBox>().Any(t => string.IsNullOrEmpty(t.Text)))
             {
                 MessageBox.Show("קיימים שדות ריקים", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -52,7 +82,7 @@ namespace GymMgr
                 return;
             }
 
-       
+
             DialogResult = System.Windows.Forms.DialogResult.OK;
 
         }
@@ -86,7 +116,7 @@ namespace GymMgr
 
             txtCardSN.Text = reader.ReadOnce();
 
-//            MessageBox.Show("תודה", "עידכון מספר כרטיס", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //            MessageBox.Show("תודה", "עידכון מספר כרטיס", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 

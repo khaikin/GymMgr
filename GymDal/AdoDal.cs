@@ -18,7 +18,7 @@ namespace GymDal
         {
             _connectionString = connectionString;
         }
-        
+
 
         public AdoDal()
         {
@@ -74,6 +74,14 @@ namespace GymDal
 
         public void AddLogin(int id)
         {
+            if (id == 0)
+            {
+                if (OnLogin != null)
+                    OnLogin(this, new LoginEvent { Name = "שגיאת מערכת!!!. ", SubscriptionTill = DateTime.MinValue, IsObligor = true });
+                return;
+            
+            }
+
             using (var con = new SqlConnection(_connectionString))
             using (var comm = new SqlCommand("LoginByCustomerId", con) { CommandType = CommandType.StoredProcedure })
             {
@@ -83,6 +91,13 @@ namespace GymDal
             }
 
             var cust = GetListCustomer(id);
+            if (cust.Rows.Count == 0)
+            {
+                if (OnLogin != null)
+                    OnLogin(this, new LoginEvent { Name = "מנוי לא קיים", SubscriptionTill = DateTime.MinValue, IsObligor = true });
+                return;
+            }
+            
             var name = cust.Rows[0]["FirstName"].ToString().Trim() + " " + cust.Rows[0]["LastName"].ToString().Trim();
 
             var pay = GetPaymentsPerCustomer(id);
@@ -391,21 +406,38 @@ namespace GymDal
 
         public void AddLogin(string sn)
         {
-          
-            
+            var id = GetClientIdByCardSn(sn);
+            this.AddLogin(id);
+        }
+
+        public int GetClientIdByCardSn(string cardSn)
+        {
 
             using (var con = new SqlConnection(_connectionString))
             using (var comm = new SqlCommand("GetIdByCardSN", con) { CommandType = CommandType.StoredProcedure })
             {
-                comm.Parameters.Add(new SqlParameter("@CardSN", sn));
+                comm.Parameters.Add(new SqlParameter("@CardSN", cardSn));
                 var outID = comm.Parameters.Add(new SqlParameter("@id", 0));
                 outID.Direction = ParameterDirection.Output;
                 con.Open();
                 comm.ExecuteNonQuery();
                 int res;
                 if (int.TryParse(outID.Value.ToString(), out res))
-                    this.AddLogin(res);
+                    return res;
 
+                return 0;
+            }
+
+        }
+
+        public void DeleteCardSn(string sn)
+        {
+            using (var con = new SqlConnection(_connectionString))
+            using (var comm = new SqlCommand("DeleteCardSn", con) { CommandType = CommandType.StoredProcedure })
+            {
+                comm.Parameters.Add(new SqlParameter("@sn", sn));
+                con.Open();
+                comm.ExecuteNonQuery();
             }
         }
     }

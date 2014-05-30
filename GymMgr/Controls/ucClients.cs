@@ -56,6 +56,14 @@ namespace GymMgr
                 {
 
                     frm.btnAction.Text = "הוסף";
+                    frm.CardSnExists = sn =>
+                    {
+                        var clientID = Dal.GetClientIdByCardSn(sn);
+                        return clientID != 0;
+                    };
+                    frm.RemoveCardSnFromPrevious = sn => Dal.DeleteCardSn(sn);
+
+
 
                     if (frm.ShowDialog() == DialogResult.Cancel)
                         return;
@@ -182,6 +190,12 @@ namespace GymMgr
                 frm.emailTextBox.Text = client.Field<string>("Email");
                 frm.birthDateDateTimePicker.Value = client.Field<DateTime>("BirthDate");
                 frm.txtCardSN.Text = client.Field<string>("CardSN");
+                frm.CardSnExists = sn =>
+                {
+                    var clientID = Dal.GetClientIdByCardSn(sn);
+                    return clientID != 0 && clientID != client.Field<int>("Id");
+                };
+                frm.RemoveCardSnFromPrevious = sn => Dal.DeleteCardSn(sn);
 
 
                 if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK)
