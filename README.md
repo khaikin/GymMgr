@@ -1,3 +1,3 @@
 GymMgr
 ======
-Sample App
+Sample App. Mgr
