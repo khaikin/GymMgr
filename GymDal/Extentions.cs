@@ -11,13 +11,31 @@ namespace GymDal
     public static class Extentions
     {
 
-        //public static string State(this Customer customer)
-        //{
-        //    return customer.StateType.Description;
+        public static IEnumerable<TSource> FromHierarchy<TSource>(
+        this TSource source,
+        Func<TSource, TSource> nextItem,
+        Func<TSource, bool> canContinue)
+        {
+            for (var current = source; canContinue(current); current = nextItem(current))
+            {
+                yield return current;
+            }
+        }
 
-        //}
+        public static IEnumerable<TSource> FromHierarchy<TSource>(
+            this TSource source,
+            Func<TSource, TSource> nextItem)
+            where TSource : class
+        {
+            return FromHierarchy(source, nextItem, s => s != null);
+        }
 
-
+        public static string GetAllMessages(this Exception exception)
+        {
+            var messages = exception.FromHierarchy(ex => ex.InnerException)
+                .Select(ex => ex.Message);
+            return String.Join(Environment.NewLine, messages);
+        }
         public static Image ScaleImage(this Image image, int maxWidth, int maxHeight)
         {
             var ratioX = (double)maxWidth / image.Width;
@@ -50,11 +68,11 @@ namespace GymDal
                 string base64String = Convert.ToBase64String(imageBytes);
                 return base64String;
             }
-        
+
         }
 
 
-        public  static Image Base64StringToImage(this string base64String)
+        public static Image Base64StringToImage(this string base64String)
         {
             // Convert Base64 String to byte[]
             byte[] imageBytes = Convert.FromBase64String(base64String);
@@ -100,5 +118,5 @@ namespace GymDal
         public string ExerciseName { get { return WorkoutExercise.Name; } }
     }
 
-  
+
 }

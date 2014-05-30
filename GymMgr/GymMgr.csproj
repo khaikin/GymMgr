@@ -41,14 +41,6 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -128,6 +120,10 @@
     <Compile Include="frmWorkOut.Designer.cs">
       <DependentUpon>frmWorkOut.cs</DependentUpon>
     </Compile>
+    <Compile Include="GymDBDataSet1.cs">
+      <DependentUpon>GymDBDataSet1.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GymDBDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -167,7 +163,6 @@
     <None Include="GymDBDataSet1.xss">
       <DependentUpon>GymDBDataSet1.xsd</DependentUpon>
     </None>
-    <None Include="packages.config" />
     <None Include="Properties\DataSources\GymDal.Customer.datasource" />
     <None Include="Properties\DataSources\GymDal.Payment.datasource" />
     <None Include="Properties\DataSources\GymDal.Workout.datasource" />

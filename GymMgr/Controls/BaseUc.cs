@@ -26,21 +26,7 @@ namespace GymMgr
 
 
 
-        protected List<Customer> Clients
-        {
-            get
-            {
-                var clients = new List<Customer>();
-                using (var dal = new Dal())
-                    clients = dal.GetCustomers().Where(c => c.Active).ToList();
-
-                return clients;
-            }
-        }
-
-
-
-        protected DataTable Customers
+            protected DataTable Customers
         {
             get
             {

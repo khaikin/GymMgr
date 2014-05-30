@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using GymDal;
 using System.Reflection;
-using System.Data.Entity.Validation;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Threading;
@@ -231,54 +230,6 @@ namespace GymMgr
             where TSource : class
         {
             return FromHierarchy(source, nextItem, s => s != null);
-        }
-
-        /// <summary>
-        /// Get All inner exception error messages
-        /// </summary>
-        /// <param name="exception"></param>
-        /// <returns></returns>
-        public static string GetAllMessages(this Exception exception)
-        {
-            if (exception is DbEntityValidationException)
-                return ParseDbEF(exception as DbEntityValidationException);
-
-            var messages = exception.FromHierarchy(ex => ex.InnerException)
-                .Select(ex => ex.Message);
-
-
-            return String.Join(Environment.NewLine, messages);
-        }
-
-
-
-        static string ParseErrorMessage(Exception ex)
-        {
-            if (ex is DbEntityValidationException)
-                return ParseDbEF(ex as DbEntityValidationException);
-            else
-                return ex.GetAllMessages();
-        }
-
-
-
-        static private string ParseDbEF(DbEntityValidationException e)
-        {
-            if (e == null)
-                return "";
-
-            var strb = new StringBuilder();
-            foreach (var eve in e.EntityValidationErrors)
-            {
-                strb.AppendLine(string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                    eve.Entry.Entity.GetType().Name, eve.Entry.State));
-                foreach (var ve in eve.ValidationErrors)
-                {
-                    strb.AppendLine(string.Format("- JobName: \"{0}\", Error: \"{1}\"",
-                        ve.PropertyName, ve.ErrorMessage));
-                }
-            }
-            return strb.ToString();
         }
 
 

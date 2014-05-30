@@ -80,7 +80,6 @@ namespace GymMgr
             }
             catch (Exception ex)
             {
-
                 ErrorMessage(ex.GetAllMessages());
             }
         }
