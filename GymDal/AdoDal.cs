@@ -528,12 +528,12 @@ namespace GymDal
             }
             else
             {
-                str=string.Format(
-                                                " UPDATE [dbo].[Users] "+
-                                "   SET [Name] = N'{0}' "+
-                                 "     ,[UserName] = N'{1}' "+
-                                  "    ,[Password] = N'{2}' "+
-                                   "   ,[IsAdmin] = {3} WHERE id= {4}",user.Name,user.UserName,user.Password.Base64Encode(), user.IsAdmin ? "1" : "0",user.Id);
+                str = string.Format(
+                                                " UPDATE [dbo].[Users] " +
+                                "   SET [Name] = N'{0}' " +
+                                 "     ,[UserName] = N'{1}' " +
+                                  "    ,[Password] = N'{2}' " +
+                                   "   ,[IsAdmin] = {3} WHERE id= {4}", user.Name, user.UserName, user.Password.Base64Encode(), user.IsAdmin ? "1" : "0", user.Id);
 
             }
 
@@ -554,6 +554,26 @@ namespace GymDal
             {
                 con.Open();
                 comm.ExecuteNonQuery();
+            }
+        }
+
+        public DataTable GetLogins(int paymentId, int costumerId)
+        {
+            DataTable res = new DataTable();
+
+            using (var con = new SqlConnection(_connectionString))
+            using (var comm = new SqlCommand("GetLoginsPerPaymentPeriod", con) { CommandType = CommandType.StoredProcedure })
+            {
+                comm.Parameters.Add(new SqlParameter("@paymentId", paymentId));
+                comm.Parameters.Add(new SqlParameter("@customerid", costumerId));
+                using (var da = new SqlDataAdapter(comm))
+                {
+                    con.Open();
+                    da.Fill(res);
+                }
+
+
+                return res;
             }
         }
     }

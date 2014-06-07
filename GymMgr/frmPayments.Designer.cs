@@ -80,6 +80,7 @@
             this.dgvPayment.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPayment.Size = new System.Drawing.Size(723, 362);
             this.dgvPayment.TabIndex = 16;
+            this.dgvPayment.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPayment_CellClick);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -136,9 +137,9 @@
             // 
             this.btnAddSubscr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddSubscr.Image = global::GymMgr.Properties.Resources.page_white_add;
-            this.btnAddSubscr.Location = new System.Drawing.Point(651, 12);
+            this.btnAddSubscr.Location = new System.Drawing.Point(607, 12);
             this.btnAddSubscr.Name = "btnAddSubscr";
-            this.btnAddSubscr.Size = new System.Drawing.Size(75, 58);
+            this.btnAddSubscr.Size = new System.Drawing.Size(119, 58);
             this.btnAddSubscr.TabIndex = 17;
             this.btnAddSubscr.Text = "הוסף מנוי חדש";
             this.btnAddSubscr.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
