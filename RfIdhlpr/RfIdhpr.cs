@@ -220,11 +220,11 @@ namespace RfIdhlpr
                     bConnectedDevice = Connect();
                     if (!bConnectedDevice)
                     {
-                        Thread.Sleep(1000);
+                        Thread.Sleep(2000);
                         continue;
                     }
                     ReadCardSN();
-                    Thread.Sleep(500);
+                    Thread.Sleep(800);
                 }
             });
         }
@@ -252,10 +252,10 @@ namespace RfIdhlpr
 
             return sn;
         }
-
+        short icdev = 0x0000;
         public string ReadCardSN()
         {
-            short icdev = 0x0000;
+
             int status;
             byte type = (byte)'A';//mifare one 卡询卡方式为A
             byte mode = 0x52;
@@ -266,18 +266,12 @@ namespace RfIdhlpr
             sbyte size = 0;
             String m_cardNo = String.Empty;
 
-
-
             if (!bConnectedDevice)
             {
                 return "";
                 //throw new ApplicationException("ההתקו אינו מחובר");
             }
-
-
-
             pSnr = Marshal.AllocHGlobal(1024);
-
             for (int i = 0; i < 2; i++)
             {
                 status = rf_antenna_sta(icdev, 0);//关闭天线 close antenna  
@@ -314,22 +308,30 @@ namespace RfIdhlpr
                     szBytes[j] = Marshal.ReadByte(pSnr, j);
                 }
 
-
-
                 for (int q = 0; q < len; q++)
                 {
                     m_cardNo += byteHEX(szBytes[q]);
                 }
 
-                rf_beep(icdev, 40);
+                Beep();
                 break;
             }
 
             Marshal.FreeHGlobal(pSnr);
-            if (!string.IsNullOrEmpty(m_cardNo) && !_postponePollingEvents)
+            if (!string.IsNullOrEmpty(m_cardNo) && prevCardSn != m_cardNo && !_postponePollingEvents)
+            {
                 if (CardRead != null)
                     CardRead(this, new RfIdReadEvent { CardSN = m_cardNo });
+                prevCardSn = m_cardNo;  // prevent double reading
+            }
+
             return m_cardNo;
+        }
+
+        private string prevCardSn;
+        public void Beep()
+        {
+            rf_beep(icdev, 40);
         }
 
         public void PostponePolling()
@@ -369,7 +371,7 @@ namespace RfIdhlpr
 
             if (disposing)
             {
-
+                prevCardSn = "";
                 Disconnect();
                 if (CardRead != null)
                 {

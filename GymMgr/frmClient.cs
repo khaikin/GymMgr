@@ -112,7 +112,7 @@ namespace GymMgr
                 return;
             }
             reader.PostponePolling();
-            MessageBox.Show("נא להניח כרטיס על משטח", "עידכון מספר כרטיס", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("'OK' נא להניח כרטיס על משטח וללחוץ", "עידכון מספר כרטיס", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             txtCardSN.Text = reader.ReadOnce();
 

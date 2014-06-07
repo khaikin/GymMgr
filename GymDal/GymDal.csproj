@@ -89,6 +89,7 @@
     <Compile Include="DTO\WorkoutProgram.cs" />
     <Compile Include="Extentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

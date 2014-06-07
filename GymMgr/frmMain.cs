@@ -12,21 +12,40 @@ using System.Configuration;
 using System.Threading.Tasks;
 using System.Threading;
 using RfIdhlpr;
+using System.Media;
 
 namespace GymMgr
 {
     public partial class frmMain : Form
     {
-        bool _pollReader;
+
         RfIdhpr reader;
         AdoDal _dal;
+        private bool _loggedIn = false;
 
+        private User _user;
 
         public frmMain()
         {
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("he-IL");
             InitializeComponent();
-            AdoDal.OnLogin += (o, ev) => notifyIcon1.ShowBalloonTip(3000, "כניסה", ev.ToString(), ev.IsObligor ? ToolTipIcon.Warning : ToolTipIcon.Info);
+            AdoDal.OnLogin += (o, ev) =>
+            {
+                if (ev.IsObligor && reader != null)
+                {
+                    Thread.Sleep(300);
+                    //Console.Beep();
+                    reader.Beep();
+                    Thread.Sleep(300);
+                    //Console.Beep();
+                    reader.Beep();
+                }
+                notifyIcon1.ShowBalloonTip(3000, "כניסה", ev.ToString(), ev.IsObligor ? ToolTipIcon.Warning : ToolTipIcon.Info);
+                SetLastLogin(ev.Name);
+
+            };
         }
+
 
         private void btnClients_Click(object sender, EventArgs e)
         {
@@ -71,7 +90,7 @@ namespace GymMgr
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            splitContainer1.Panel2.Controls.Add(new ucSubscriptions() { Dock = DockStyle.Fill });
+            // splitContainer1.Panel2.Controls.Add(new ucClients() { Dock = DockStyle.Fill });
             Properties.Settings.Default.Reload();
 
             cbBaud.SelectedItem = Baud;
@@ -125,6 +144,17 @@ namespace GymMgr
             set
             {
                 Properties.Settings.Default.ConnectReader = value;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+        }
+
+        private string User
+        {
+            get { return Properties.Settings.Default.LastUser; }
+            set
+            {
+                Properties.Settings.Default.LastUser = value;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
             }
@@ -185,7 +215,6 @@ namespace GymMgr
         {
             ConnectOnStart = checkBoxConnect.Checked;
         }
-      
 
         private void UpdateStatus(bool isConnected)
         {
@@ -193,49 +222,107 @@ namespace GymMgr
                 Invoke(new MethodInvoker(delegate
                     {
                         tsmConnect.Text = isConnected ? "Disconnect" : "Connect";
-                    lblConnected.Text = isConnected ? "מחובר" : "לא מחובר";
+                        lblConnected.Text = isConnected ? "מחובר" : "לא מחובר";
+                        lblConnected.Image = isConnected ? GymMgr.Properties.Resources.link : GymMgr.Properties.Resources.link_break;
+                        //  if (!isConnected)
+                        //   Console.Beep(5000, 1000);
                     }));
             else
             {
                 tsmConnect.Text = isConnected ? "Disconnect" : "Connect";
                 lblConnected.Text = isConnected ? "מחובר" : "לא מחובר";
+                lblConnected.Image = isConnected ? GymMgr.Properties.Resources.link : GymMgr.Properties.Resources.link_break;
+                //Console.Beep(200,1000);
             }
-          
-
-
         }
+
+
+        private void SetLastLogin(string p)
+        {
+            var str = "כניסה אחרונה: {0}";
+            if (InvokeRequired)
+                Invoke(new MethodInvoker(delegate
+                     {
+                         lblLastLogin.Text = string.Format(str, p);
+                     }));
+            else
+            {
+                lblLastLogin.Text = string.Format(str, p);
+            }
+        }
+
 
         private void tsmConnect_Click(object sender, EventArgs e)
         {
             ActivateReader();
         }
 
+        private void btnLogIn_Click(object sender, EventArgs e)
+        {
+            using (var frm = new frmLogIn())
+            {
+                frm.txtUser.Text = User;
+                frm.ValidateUser = (u, p) =>
+                {
+                    if (u == "admin" && p == "5486")
+                    {
+                        _user = new User { IsAdmin = true, Name = "admin" };
+                        return true;
+                    }
+
+
+
+                    _user = _dal.GetUser(u);
+
+                    if (_user == null)
+                        return false;
+
+                    return _user.Password == p;
+                };
+
+                if (frm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    splitContainer1.Panel1.Enabled = true;
+                    splitContainer1.Panel2.Controls.Clear();
+                    splitContainer1.Panel2.Controls.Add(new ucClients() { Dock = DockStyle.Fill });
+
+                    if (_user.IsAdmin)
+                        usersToolStripMenuItem.Visible = true;
+
+
+                    this.Text = "Gym Manager " + _user.Name;
+
+                    _loggedIn = true;
+                    if (_user.Name != "admin")
+                        User = _user.UserName;
+                }
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void printPreviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel2.Controls.Clear();
+            splitContainer1.Panel2.Controls.Add(btnLogIn);
+            _loggedIn = false;
+        }
+
+        private void usersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var frm = new frmUsers())
+            {
+                frm.ShowDialog();
+            }
+        }
+
+
+
 
     }
 
-    //public static class Extentions
-    //{
-    //    #region Exceptions
-    //    private static IEnumerable<TSource> FromHierarchy<TSource>(this TSource source, Func<TSource, TSource> nextItem, Func<TSource, bool> canContinue)
-    //    {
-    //        for (var current = source; canContinue(current); current = nextItem(current))
-    //        {
-    //            yield return current;
-    //        }
-    //    }
 
-    //    private static IEnumerable<TSource> FromHierarchy<TSource>(
-    //        this TSource source,
-    //        Func<TSource, TSource> nextItem)
-    //        where TSource : class
-    //    {
-    //        return FromHierarchy(source, nextItem, s => s != null);
-    //    }
-
-
-
-
-
-    //    #endregion
-    //}
 }

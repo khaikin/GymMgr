@@ -35,6 +35,7 @@
             System.Windows.Forms.Label identificationNumberLabel;
             System.Windows.Forms.Label lastNameLabel;
             System.Windows.Forms.Label label1;
+            System.Windows.Forms.Label label2;
             this.btnAction = new System.Windows.Forms.Button();
             this.btnCalcel = new System.Windows.Forms.Button();
             this.addressTextBox = new System.Windows.Forms.TextBox();
@@ -45,6 +46,7 @@
             this.lastNameTextBox = new System.Windows.Forms.TextBox();
             this.txtCardSN = new System.Windows.Forms.TextBox();
             this.tbnReadOnce = new System.Windows.Forms.Button();
+            this.mtxtPhone = new System.Windows.Forms.MaskedTextBox();
             addressLabel = new System.Windows.Forms.Label();
             birthDateLabel = new System.Windows.Forms.Label();
             emailLabel = new System.Windows.Forms.Label();
@@ -52,6 +54,7 @@
             identificationNumberLabel = new System.Windows.Forms.Label();
             lastNameLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // addressLabel
@@ -111,7 +114,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(11, 171);
+            label1.Location = new System.Drawing.Point(11, 196);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(39, 13);
             label1.TabIndex = 33;
@@ -119,7 +122,7 @@
             // 
             // btnAction
             // 
-            this.btnAction.Location = new System.Drawing.Point(170, 216);
+            this.btnAction.Location = new System.Drawing.Point(170, 251);
             this.btnAction.Name = "btnAction";
             this.btnAction.Size = new System.Drawing.Size(75, 34);
             this.btnAction.TabIndex = 7;
@@ -130,7 +133,7 @@
             // btnCalcel
             // 
             this.btnCalcel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCalcel.Location = new System.Drawing.Point(252, 216);
+            this.btnCalcel.Location = new System.Drawing.Point(252, 251);
             this.btnCalcel.Name = "btnCalcel";
             this.btnCalcel.Size = new System.Drawing.Size(75, 34);
             this.btnCalcel.TabIndex = 8;
@@ -188,7 +191,7 @@
             // 
             // txtCardSN
             // 
-            this.txtCardSN.Location = new System.Drawing.Point(127, 168);
+            this.txtCardSN.Location = new System.Drawing.Point(127, 193);
             this.txtCardSN.Name = "txtCardSN";
             this.txtCardSN.Size = new System.Drawing.Size(149, 20);
             this.txtCardSN.TabIndex = 32;
@@ -196,7 +199,7 @@
             // 
             // tbnReadOnce
             // 
-            this.tbnReadOnce.Location = new System.Drawing.Point(283, 167);
+            this.tbnReadOnce.Location = new System.Drawing.Point(283, 192);
             this.tbnReadOnce.Name = "tbnReadOnce";
             this.tbnReadOnce.Size = new System.Drawing.Size(44, 23);
             this.tbnReadOnce.TabIndex = 34;
@@ -204,11 +207,30 @@
             this.tbnReadOnce.UseVisualStyleBackColor = true;
             this.tbnReadOnce.Click += new System.EventHandler(this.tbnReadOnce_Click);
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(11, 169);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(41, 13);
+            label2.TabIndex = 36;
+            label2.Text = "טלפון:";
+            // 
+            // mtxtPhone
+            // 
+            this.mtxtPhone.Location = new System.Drawing.Point(127, 168);
+            this.mtxtPhone.Mask = "000-0000000";
+            this.mtxtPhone.Name = "mtxtPhone";
+            this.mtxtPhone.Size = new System.Drawing.Size(200, 20);
+            this.mtxtPhone.TabIndex = 37;
+            // 
             // frmClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 262);
+            this.ClientSize = new System.Drawing.Size(352, 297);
+            this.Controls.Add(this.mtxtPhone);
+            this.Controls.Add(label2);
             this.Controls.Add(this.tbnReadOnce);
             this.Controls.Add(label1);
             this.Controls.Add(this.txtCardSN);
@@ -247,5 +269,6 @@
         public System.Windows.Forms.TextBox lastNameTextBox;
         public System.Windows.Forms.TextBox txtCardSN;
         private System.Windows.Forms.Button tbnReadOnce;
+        public System.Windows.Forms.MaskedTextBox mtxtPhone;
     }
 }

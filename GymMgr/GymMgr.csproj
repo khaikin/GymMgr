@@ -84,6 +84,12 @@
     <Compile Include="frmClient.Designer.cs">
       <DependentUpon>frmClient.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLogIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLogIn.Designer.cs">
+      <DependentUpon>frmLogIn.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,12 @@
     </Compile>
     <Compile Include="frmPayment.Designer.cs">
       <DependentUpon>frmPayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPayments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPayments.Designer.cs">
+      <DependentUpon>frmPayments.cs</DependentUpon>
     </Compile>
     <Compile Include="frmProgram.cs">
       <SubType>Form</SubType>
@@ -113,6 +125,12 @@
     </Compile>
     <Compile Include="frmSet.Designer.cs">
       <DependentUpon>frmSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUsers.Designer.cs">
+      <DependentUpon>frmUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="frmWorkOut.cs">
       <SubType>Form</SubType>
@@ -183,6 +201,9 @@
     <EmbeddedResource Include="frmClient.resx">
       <DependentUpon>frmClient.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmLogIn.resx">
+      <DependentUpon>frmLogIn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -192,6 +213,9 @@
     <EmbeddedResource Include="frmPayment.resx">
       <DependentUpon>frmPayment.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmPayments.resx">
+      <DependentUpon>frmPayments.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmProgram.resx">
       <DependentUpon>frmProgram.cs</DependentUpon>
     </EmbeddedResource>
@@ -200,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSet.resx">
       <DependentUpon>frmSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUsers.resx">
+      <DependentUpon>frmUsers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmWorkOut.resx">
       <DependentUpon>frmWorkOut.cs</DependentUpon>
@@ -226,6 +253,27 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Resources\gym.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\find.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\add.png" />
+    <None Include="Resources\user_edit.png" />
+    <None Include="Resources\cog.png" />
+    <None Include="Resources\door_out.png" />
+    <None Include="Resources\door_in.png" />
+    <None Include="Resources\link.png" />
+    <None Include="Resources\link_break.png" />
+    <None Include="Resources\folder_user.png" />
+    <None Include="Resources\page_white_add.png" />
+    <None Include="Resources\page_add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

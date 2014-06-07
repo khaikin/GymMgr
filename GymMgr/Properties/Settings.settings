@@ -19,5 +19,8 @@
     <Setting Name="ConnectReader" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="LastUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">bahaa</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

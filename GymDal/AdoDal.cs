@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GymDal
@@ -36,6 +38,12 @@ namespace GymDal
                 {
                     data.Fill(dt);
                 }
+
+                if (dt.Rows.Count == 0)
+                    return dt;
+
+                AddSubscriptionToCustomerDt(dt);
+
             }
 
             return dt;
@@ -43,7 +51,25 @@ namespace GymDal
 
         }
 
-        public DataTable GetListCustomer(int id)
+        private void AddSubscriptionToCustomerDt(DataTable dt)
+        {
+
+
+            dt.Columns.Add(new DataColumn("SubscriptionTo"));
+
+            foreach (DataRow row in dt.Rows)
+            {
+                var pay = GetPaymentsPerCustomer((int)row["id"]);
+                DateTime max = DateTime.MinValue;
+                if (pay.Rows.Count > 0)
+                    max = pay.AsEnumerable().Cast<DataRow>().Max(r => r.Field<DateTime>("To"));
+                row["SubscriptionTo"] = max.ToShortDateString();
+            }
+
+        }
+
+
+        public DataTable GetCustomer(int id)
         {
             var dt = new DataTable();
             var lst = new List<Customer>();
@@ -55,7 +81,7 @@ namespace GymDal
                     data.Fill(dt);
                 }
             }
-
+            AddSubscriptionToCustomerDt(dt);
             return dt;
 
 
@@ -79,7 +105,7 @@ namespace GymDal
                 if (OnLogin != null)
                     OnLogin(this, new LoginEvent { Name = "שגיאת מערכת!!!. ", SubscriptionTill = DateTime.MinValue, IsObligor = true });
                 return;
-            
+
             }
 
             using (var con = new SqlConnection(_connectionString))
@@ -90,14 +116,14 @@ namespace GymDal
                 comm.ExecuteNonQuery();
             }
 
-            var cust = GetListCustomer(id);
+            var cust = GetCustomer(id);
             if (cust.Rows.Count == 0)
             {
                 if (OnLogin != null)
                     OnLogin(this, new LoginEvent { Name = "מנוי לא קיים", SubscriptionTill = DateTime.MinValue, IsObligor = true });
                 return;
             }
-            
+
             var name = cust.Rows[0]["FirstName"].ToString().Trim() + " " + cust.Rows[0]["LastName"].ToString().Trim();
 
             var pay = GetPaymentsPerCustomer(id);
@@ -124,7 +150,8 @@ namespace GymDal
                         "            ,[Address]" +
                         "            ,[CreationTimeStamp]" +
                         "            ,[Active]" +
-                                                "            ,[CardSN]" +
+                        "            ,[CardSN]" +
+                        "            ,[Phone]" +
                         "            )" +
                         "      VALUES" +
                         "            (N'{0}'" +
@@ -135,7 +162,8 @@ namespace GymDal
                         "            ,N'{5}'" +
                         "            ,'{6}'" +
                         "            ,'{7}'" +
-                           "            ,'{9}'" +
+                        "            ,'{9}'" +
+                        "            ,'{10}'" +
                         "            )";
 
 
@@ -151,21 +179,25 @@ namespace GymDal
                            "      ,[CreationTimeStamp] = '{6}'" +
                            "      ,[Active] = '{7}'" +
                            "      ,[WorkoutProgram_Id] = {8}" +
-                              "      ,[CardSN] = '{9}'" +
+                           "      ,[CardSN] = '{9}'" +
+                           "      ,[Phone] = '{10}'" +
                            " WHERE id=" + customer["id"];
 
-
+            var cul = new CultureInfo("en-US");
             var query = string.Format(str,
                  customer["FirstName"],
                  customer["LastName"],
                  customer["IdentificationNumber"],
-                 customer["BirthDate"],
+                // customer["BirthDate"],
+                 DateTime.Parse(customer["BirthDate"].ToString()).ToString(cul),
                  customer["Email"],
                  customer["Address"],
-                 customer["CreationTimeStamp"],
+                //customer["CreationTimeStamp"],
+                  DateTime.Parse(customer["CreationTimeStamp"].ToString()).ToString(cul),
                  customer["Active"].ToString().ToLower() == "true" ? "1" : "0",
                  string.IsNullOrEmpty(customer["WorkoutProgram_Id"].ToString()) ? "NULL" : customer["WorkoutProgram_Id"].ToString(),
-                 customer["CardSN"]
+                 customer["CardSN"],
+                 customer["Phone"]
                 );
 
             using (var con = new SqlConnection(_connectionString))
@@ -440,6 +472,90 @@ namespace GymDal
                 comm.ExecuteNonQuery();
             }
         }
+
+        public User GetUser(string u)
+        {
+            var dt = new DataTable();
+
+            using (var con = new SqlConnection(_connectionString))
+            {
+                using (var data = new SqlDataAdapter("SELECT * FROM Users  where username='" + u + "'", con))
+                {
+                    data.Fill(dt);
+                }
+            }
+            if (dt.Rows.Count == 1)
+                return new User { Id = (int)dt.Rows[0]["id"], UserName = u, Name = dt.Rows[0]["Name"].ToString(), Password = dt.Rows[0]["Password"].ToString().Base64Decode(), IsAdmin = dt.Rows[0]["IsAdmin"].ToString() == "True" };//.Base64Decode();
+            return null; ;
+        }
+
+        public List<User> GetListOfUsers()
+        {
+            var dt = new DataTable();
+            var lst = new List<User>();
+            using (var con = new SqlConnection(_connectionString))
+            {
+                using (var data = new SqlDataAdapter("SELECT * FROM Users  ", con))
+                {
+                    data.Fill(dt);
+                }
+            }
+            foreach (DataRow row in dt.Rows)
+            {
+                var user = new User { Id = (int)row["id"], UserName = row["UserName"].ToString(), Name = row["Name"].ToString(), Password = row["Password"].ToString().Base64Decode(), IsAdmin = row["IsAdmin"].ToString() == "True" };//.Base64Decode(); 
+                lst.Add(user);
+            }
+
+            return lst;
+        }
+
+        public void AddUpdateUser(User user)
+        {
+            var str = "";
+            if (user.Id == 0) // new
+            {
+                str = string.Format(
+                              "              INSERT INTO [dbo].[Users]  " +
+                              "         ([Name] " +
+                              "         ,[UserName] " +
+                              "         ,[Password] " +
+                              "         ,[IsAdmin]) " +
+                              "   VALUES " +
+                              "         (N'{0}' " +
+                              "         ,N'{1}' " +
+                              "         ,N'{2}' " +
+                              "         ,{3})          ", user.Name, user.UserName, user.Password.Base64Encode(), user.IsAdmin ? "1" : "0");
+            }
+            else
+            {
+                str=string.Format(
+                                                " UPDATE [dbo].[Users] "+
+                                "   SET [Name] = N'{0}' "+
+                                 "     ,[UserName] = N'{1}' "+
+                                  "    ,[Password] = N'{2}' "+
+                                   "   ,[IsAdmin] = {3} WHERE id= {4}",user.Name,user.UserName,user.Password.Base64Encode(), user.IsAdmin ? "1" : "0",user.Id);
+
+            }
+
+            using (var con = new SqlConnection(_connectionString))
+            using (var comm = new SqlCommand(str, con))
+            {
+                con.Open();
+                comm.ExecuteNonQuery();
+            }
+
+        }
+
+        public void DeleteUser(int p)
+        {
+            var str = "delete from Users where id=" + p;
+            using (var con = new SqlConnection(_connectionString))
+            using (var comm = new SqlCommand(str, con))
+            {
+                con.Open();
+                comm.ExecuteNonQuery();
+            }
+        }
     }
 
 
@@ -457,5 +573,7 @@ namespace GymDal
             str.AppendLine("מנוי עד: " + SubscriptionTill.ToShortDateString());
             return str.ToString();
         }
+
+
     }
 }

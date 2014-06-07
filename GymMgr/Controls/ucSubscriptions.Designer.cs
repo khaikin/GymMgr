@@ -33,6 +33,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvClient = new System.Windows.Forms.DataGridView();
+            this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.identificationNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dgvPayment = new System.Windows.Forms.DataGridView();
             this.fromDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,9 +44,6 @@
             this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timeStampDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.paymentBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.identificationNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClient)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPayment)).BeginInit();
@@ -75,6 +75,28 @@
             this.dgvClient.Size = new System.Drawing.Size(486, 470);
             this.dgvClient.TabIndex = 0;
             this.dgvClient.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClients_CellClick);
+            this.dgvClient.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvClient_CellPainting);
+            // 
+            // firstNameDataGridViewTextBoxColumn
+            // 
+            this.firstNameDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
+            this.firstNameDataGridViewTextBoxColumn.HeaderText = "שם פרטי";
+            this.firstNameDataGridViewTextBoxColumn.Name = "firstNameDataGridViewTextBoxColumn";
+            this.firstNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // lastNameDataGridViewTextBoxColumn
+            // 
+            this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
+            this.lastNameDataGridViewTextBoxColumn.HeaderText = "שם משפחה";
+            this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
+            this.lastNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // identificationNumberDataGridViewTextBoxColumn
+            // 
+            this.identificationNumberDataGridViewTextBoxColumn.DataPropertyName = "IdentificationNumber";
+            this.identificationNumberDataGridViewTextBoxColumn.HeaderText = "תעודת זהות";
+            this.identificationNumberDataGridViewTextBoxColumn.Name = "identificationNumberDataGridViewTextBoxColumn";
+            this.identificationNumberDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // customerBindingSource
             // 
@@ -153,27 +175,6 @@
             // paymentBindingSource
             // 
             this.paymentBindingSource.DataSource = typeof(GymDal.Payment);
-            // 
-            // firstNameDataGridViewTextBoxColumn
-            // 
-            this.firstNameDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
-            this.firstNameDataGridViewTextBoxColumn.HeaderText = "שם פרטי";
-            this.firstNameDataGridViewTextBoxColumn.Name = "firstNameDataGridViewTextBoxColumn";
-            this.firstNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // lastNameDataGridViewTextBoxColumn
-            // 
-            this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
-            this.lastNameDataGridViewTextBoxColumn.HeaderText = "שם משפחה";
-            this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
-            this.lastNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // identificationNumberDataGridViewTextBoxColumn
-            // 
-            this.identificationNumberDataGridViewTextBoxColumn.DataPropertyName = "IdentificationNumber";
-            this.identificationNumberDataGridViewTextBoxColumn.HeaderText = "תעודת זהות";
-            this.identificationNumberDataGridViewTextBoxColumn.Name = "identificationNumberDataGridViewTextBoxColumn";
-            this.identificationNumberDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // ucSubscriptions
             // 

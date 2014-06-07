@@ -12,6 +12,7 @@ namespace GymMgr
 {
     public partial class frmPayment : Form
     {
+        public Func<DateTime, bool> ToDateIsValid;
         public frmPayment()
         {
             InitializeComponent();
@@ -48,6 +49,14 @@ namespace GymMgr
                 MessageBox.Show("הסכום אינו תקין", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 res = false;
             }
+
+            if(ToDateIsValid!=null)
+                if (!ToDateIsValid(toDateTimePicker.Value))
+                {
+                    MessageBox.Show("תאריך 'עד' אינו תקין. כנראה קיים רישום מאוחר יותר.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    res = false;
+                }
+
             return res;
         }
 

@@ -11,6 +11,10 @@ using GymDal;
 
 namespace GymMgr
 {
+
+ 
+
+
     public partial class ucSubscriptions : BaseUc
     {
         public ucSubscriptions()
@@ -23,7 +27,9 @@ namespace GymMgr
         private void ucSubscriptions_Load(object sender, EventArgs e)
         {
             customerBindingSource.DataSource = Customers;
-            dgvClient.Columns.Add(new DataGridViewButtonColumn { Name = "Add", HeaderText = "", Text = "הוסף תקופה", UseColumnTextForButtonValue = true, Width = 80, AutoSizeMode = DataGridViewAutoSizeColumnMode.None });
+            var btn = new DataGridViewButtonColumn { Name = "Add", HeaderText = "", Text = "הוסף תקופה", UseColumnTextForButtonValue = true, Width = 80, AutoSizeMode = DataGridViewAutoSizeColumnMode.None };
+            
+            dgvClient.Columns.Add(btn);
         }
 
         private void dgvClients_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -39,7 +45,6 @@ namespace GymMgr
 
         private void customerBindingSource_CurrentChanged(object sender, EventArgs e)
         {
-
             paymentBindingSource.DataSource = Dal.GetPaymentsPerCustomer(CurrentCustomerId);
         }
 
@@ -72,6 +77,17 @@ namespace GymMgr
             customerBindingSource.ResetBindings(true);
 
 
+        }
+
+        private void dgvClient_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            //if (e.ColumnIndex == 3 && e.RowIndex > -1)
+            //{
+            //    Image img = GymMgr.Properties.Resources.add;
+            //    e.Graphics.DrawImage(img, e.CellBounds.Location);
+            //    e.PaintContent(e.CellBounds);
+            //    e.Handled = true;
+            //}
         }
 
 

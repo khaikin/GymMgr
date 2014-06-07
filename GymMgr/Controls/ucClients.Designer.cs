@@ -28,39 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnObligors = new System.Windows.Forms.Button();
             this.dgvClients = new System.Windows.Forms.DataGridView();
-            this.txtSearchValue = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.txtSearchValue = new System.Windows.Forms.TextBox();
             this.cbSearch = new System.Windows.Forms.ComboBox();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClients)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.btnObligors);
-            this.groupBox2.Location = new System.Drawing.Point(210, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(104, 78);
-            this.groupBox2.TabIndex = 12;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "סינון";
-            // 
-            // btnObligors
-            // 
-            this.btnObligors.Location = new System.Drawing.Point(7, 19);
-            this.btnObligors.Name = "btnObligors";
-            this.btnObligors.Size = new System.Drawing.Size(75, 23);
-            this.btnObligors.TabIndex = 0;
-            this.btnObligors.Text = "חייבים";
-            this.btnObligors.UseVisualStyleBackColor = true;
-            this.btnObligors.Click += new System.EventHandler(this.btnObligors_Click);
             // 
             // dgvClients
             // 
@@ -71,22 +48,20 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvClients.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvClients.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgvClients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClients.Location = new System.Drawing.Point(3, 87);
             this.dgvClients.Name = "dgvClients";
             this.dgvClients.ReadOnly = true;
-            this.dgvClients.RowHeadersVisible = false;
+            this.dgvClients.RowHeadersWidth = 20;
+            this.dgvClients.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvClients.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvClients.Size = new System.Drawing.Size(820, 321);
+            this.dgvClients.Size = new System.Drawing.Size(860, 495);
             this.dgvClients.TabIndex = 10;
             this.dgvClients.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClients_CellClick);
-            // 
-            // txtSearchValue
-            // 
-            this.txtSearchValue.Location = new System.Drawing.Point(11, 46);
-            this.txtSearchValue.Name = "txtSearchValue";
-            this.txtSearchValue.Size = new System.Drawing.Size(121, 20);
-            this.txtSearchValue.TabIndex = 5;
+            this.dgvClients.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvClients_CellPainting);
+            this.dgvClients.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvClients_RowsAdded);
+            this.dgvClients.Paint += new System.Windows.Forms.PaintEventHandler(this.dgvClients_Paint);
             // 
             // groupBox1
             // 
@@ -102,13 +77,24 @@
             // 
             // btnSearch
             // 
+            this.btnSearch.Image = global::GymMgr.Properties.Resources.find;
             this.btnSearch.Location = new System.Drawing.Point(138, 19);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(56, 47);
             this.btnSearch.TabIndex = 7;
             this.btnSearch.Text = "חפש";
+            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSearch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // txtSearchValue
+            // 
+            this.txtSearchValue.Location = new System.Drawing.Point(11, 46);
+            this.txtSearchValue.Name = "txtSearchValue";
+            this.txtSearchValue.Size = new System.Drawing.Size(121, 20);
+            this.txtSearchValue.TabIndex = 5;
+            this.txtSearchValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearchValue_KeyDown);
             // 
             // cbSearch
             // 
@@ -116,31 +102,39 @@
             this.cbSearch.FormattingEnabled = true;
             this.cbSearch.Items.AddRange(new object[] {
             "לפי שם",
-            "לפי תעודת זהות"});
+            "לפי תעודת זהות",
+            "לפי כרטיס"});
             this.cbSearch.Location = new System.Drawing.Point(11, 19);
             this.cbSearch.Name = "cbSearch";
             this.cbSearch.Size = new System.Drawing.Size(121, 21);
             this.cbSearch.TabIndex = 6;
+            this.cbSearch.SelectedIndexChanged += new System.EventHandler(this.cbSearch_SelectedIndexChanged);
             // 
             // btnAddNew
             // 
             this.btnAddNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddNew.Location = new System.Drawing.Point(667, 37);
+            this.btnAddNew.Image = global::GymMgr.Properties.Resources.user_add;
+            this.btnAddNew.Location = new System.Drawing.Point(788, 12);
             this.btnAddNew.Name = "btnAddNew";
-            this.btnAddNew.Size = new System.Drawing.Size(75, 43);
+            this.btnAddNew.Size = new System.Drawing.Size(75, 69);
             this.btnAddNew.TabIndex = 14;
             this.btnAddNew.Text = "הוסף לקוח חדש";
+            this.btnAddNew.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAddNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnAddNew.UseVisualStyleBackColor = true;
             this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
             // 
             // btnRefresh
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.Location = new System.Drawing.Point(748, 37);
+            this.btnRefresh.Image = global::GymMgr.Properties.Resources.arrow_refresh;
+            this.btnRefresh.Location = new System.Drawing.Point(707, 12);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 43);
+            this.btnRefresh.Size = new System.Drawing.Size(75, 70);
             this.btnRefresh.TabIndex = 13;
             this.btnRefresh.Text = "רענן";
+            this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
@@ -150,14 +144,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnAddNew);
             this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.dgvClients);
             this.Controls.Add(this.groupBox1);
             this.DoubleBuffered = true;
+            this.MinimumSize = new System.Drawing.Size(531, 585);
             this.Name = "ucClients";
-            this.Size = new System.Drawing.Size(829, 411);
+            this.Size = new System.Drawing.Size(869, 585);
             this.Load += new System.EventHandler(this.ucClients_Load);
-            this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvClients)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -167,8 +160,6 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button btnObligors;
         private System.Windows.Forms.DataGridView dgvClients;
         private System.Windows.Forms.TextBox txtSearchValue;
         private System.Windows.Forms.GroupBox groupBox1;
