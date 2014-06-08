@@ -73,7 +73,11 @@ namespace GymMgr
             splitContainer1.Panel2.Controls.Add(new ucExercise() { Dock = DockStyle.Fill });
         }
 
-
+        private void btnObligors_Click(object sender, EventArgs e)
+        {
+            splitContainer1.Panel2.Controls.Clear();
+            splitContainer1.Panel2.Controls.Add(new ucObligors() { Dock = DockStyle.Fill });
+        }
 
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
@@ -287,8 +291,15 @@ namespace GymMgr
                     splitContainer1.Panel2.Controls.Add(new ucClients() { Dock = DockStyle.Fill });
 
                     if (_user.IsAdmin)
+                    {
                         usersToolStripMenuItem.Visible = true;
-
+                        btnObligors.Visible = true;
+                    }
+                    else
+                    {
+                        usersToolStripMenuItem.Visible = false;
+                        btnObligors.Visible = false;
+                    }
 
                     this.Text = "Gym Manager " + _user.Name;
 
@@ -309,6 +320,8 @@ namespace GymMgr
             splitContainer1.Panel2.Controls.Clear();
             splitContainer1.Panel2.Controls.Add(btnLogIn);
             _loggedIn = false;
+            usersToolStripMenuItem.Visible = false;
+            btnObligors.Visible = false;
         }
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -318,6 +331,8 @@ namespace GymMgr
                 frm.ShowDialog();
             }
         }
+
+        
 
 
 

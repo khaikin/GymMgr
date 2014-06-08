@@ -70,7 +70,7 @@
             this.groupBox1.Controls.Add(this.cbSearch);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 78);
+            this.groupBox1.Size = new System.Drawing.Size(207, 78);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "חיפוש";

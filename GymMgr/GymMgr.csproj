@@ -66,6 +66,12 @@
     <Compile Include="Controls\ucExercise.Designer.cs">
       <DependentUpon>ucExercise.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ucObligors.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ucObligors.Designer.cs">
+      <DependentUpon>ucObligors.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ucProgram.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -195,8 +201,12 @@
     <None Include="Properties\DataSources\GymDal.WorkoutSet.datasource" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ObligorRep.rdlc" />
     <EmbeddedResource Include="Controls\ucExercise.resx">
       <DependentUpon>ucExercise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ucObligors.resx">
+      <DependentUpon>ucObligors.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ucProgram.resx">
       <DependentUpon>ucProgram.cs</DependentUpon>
@@ -244,7 +254,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="WorkOutRep.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GymDal\GymDal.csproj">
@@ -274,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\add.png" />
+    <None Include="Resources\money.png" />
     <None Include="Resources\user_edit.png" />
     <None Include="Resources\cog.png" />
     <None Include="Resources\door_out.png" />

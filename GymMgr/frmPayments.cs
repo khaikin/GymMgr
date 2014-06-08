@@ -72,10 +72,13 @@ namespace GymMgr
 
            // var id =(int) dgvPayment["id",e.RowIndex].Value;
             DataTable data = _dal.GetLogins(s,_custId);
-
+            if (data.Rows.Count < 1)
+            {
+                MessageBox.Show("אין מידע לתקופת המנויי");
+                return;
+            }
 
             var lst = new List<string>{"id","Customer_id"};
-
             using (var frm  = new frmView(data,lst))
             {
                 frm.ShowDialog();

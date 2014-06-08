@@ -65,6 +65,7 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnObligors = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -181,7 +182,7 @@
             this.tsmConnect});
             this.cardReaderToolStripMenuItem.Image = global::GymMgr.Properties.Resources.cog;
             this.cardReaderToolStripMenuItem.Name = "cardReaderToolStripMenuItem";
-            this.cardReaderToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cardReaderToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.cardReaderToolStripMenuItem.Text = "Card Reader";
             // 
             // checkBoxConnect
@@ -254,7 +255,7 @@
             // 
             this.usersToolStripMenuItem.Image = global::GymMgr.Properties.Resources.user_edit;
             this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
-            this.usersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.usersToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.usersToolStripMenuItem.Text = "Users";
             this.usersToolStripMenuItem.Visible = false;
             this.usersToolStripMenuItem.Click += new System.EventHandler(this.usersToolStripMenuItem_Click);
@@ -309,6 +310,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btnObligors);
             this.splitContainer1.Panel1.Controls.Add(this.btnSet);
             this.splitContainer1.Panel1.Controls.Add(this.btnSubs);
             this.splitContainer1.Panel1.Controls.Add(this.btnProgram);
@@ -406,6 +408,19 @@
             this.restoreToolStripMenuItem.Text = "Restore";
             this.restoreToolStripMenuItem.Click += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
+            // btnObligors
+            // 
+            this.btnObligors.Image = global::GymMgr.Properties.Resources.money;
+            this.btnObligors.Location = new System.Drawing.Point(3, 183);
+            this.btnObligors.Name = "btnObligors";
+            this.btnObligors.Size = new System.Drawing.Size(95, 54);
+            this.btnObligors.TabIndex = 5;
+            this.btnObligors.Text = "דו\'\'ח חייבים";
+            this.btnObligors.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.btnObligors.UseVisualStyleBackColor = true;
+            this.btnObligors.Visible = false;
+            this.btnObligors.Click += new System.EventHandler(this.btnObligors_Click);
+            // 
             // frmMain
             // 
             this.ClientSize = new System.Drawing.Size(896, 579);
@@ -471,6 +486,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel lblLastLogin;
         private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
+        private System.Windows.Forms.Button btnObligors;
 
      
     }

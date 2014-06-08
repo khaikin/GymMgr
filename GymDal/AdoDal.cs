@@ -576,6 +576,21 @@ namespace GymDal
                 return res;
             }
         }
+
+        public DataTable GetObligorsReportData()
+        {
+            var dt = new DataTable();
+
+            using (var con = new SqlConnection(_connectionString))
+            {
+                using (var data = new SqlDataAdapter("select * from view_Obligors ", con))
+                {
+                    data.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
     }
 
 

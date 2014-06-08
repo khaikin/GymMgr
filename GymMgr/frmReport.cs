@@ -23,8 +23,7 @@ namespace GymMgr
 
         private void frmReport_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'GymDBDataSet1.view_ProgramReport' table. You can move, or remove it, as needed.
-
+    
             var dal = new AdoDal();
 
             var data = dal.GetReportData(ProgramID);

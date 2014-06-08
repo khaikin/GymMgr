@@ -45,7 +45,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.11042in</Width>
+              <Width>1.21668in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.76667in</Width>
@@ -54,12 +54,12 @@
               <Width>1.17292in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.05834in</Width>
+              <Width>1.44792in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.61458in</Height>
+              <Height>0.70486in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -372,8 +372,8 @@
         </TablixRowHierarchy>
         <DataSetName>ProgramReport</DataSetName>
         <Top>0.01389in</Top>
-        <Height>0.86458in</Height>
-        <Width>5.22293in</Width>
+        <Height>0.95486in</Height>
+        <Width>5.71877in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -388,7 +388,7 @@
       </Border>
     </Style>
   </Body>
-  <Width>14.52567cm</Width>
+  <Width>14.52568cm</Width>
   <Page>
     <PageHeader>
       <Height>2.09022cm</Height>

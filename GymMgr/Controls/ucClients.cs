@@ -346,18 +346,7 @@ namespace GymMgr
             if (e.RowIndex < 0) return;
             var ind = dgvClients.Columns["SubscriptionTo"].Index;
             if (e.ColumnIndex != ind) return;
-
-
             dgvClients.EnableHeadersVisualStyles = false;
-
-            //DataGridViewCellStyle rowStyle = Grid.RowHeadersDefaultCellStyle;
-            //rowStyle.BackColor = Color.Wheat;
-            //Grid.Rows[i].HeaderCell.Style = rowStyle;
-
-
-
-
-
             var to = DateTime.Parse(dgvClients[ind, e.RowIndex].Value.ToString());
 
             if (to <= DateTime.Now)
@@ -374,6 +363,8 @@ namespace GymMgr
             }
 
         }
+
+      
 
 
     }
