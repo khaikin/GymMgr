@@ -107,13 +107,13 @@ namespace GymDal
                 return;
 
             }
-
+            string state = "";
             using (var con = new SqlConnection(_connectionString))
             using (var comm = new SqlCommand("LoginByCustomerId", con) { CommandType = CommandType.StoredProcedure })
             {
                 comm.Parameters.Add(new SqlParameter("@customerId", id));
                 con.Open();
-                comm.ExecuteNonQuery();
+            state=    comm.ExecuteScalar().ToString();
             }
 
             var cust = GetCustomer(id);
@@ -133,7 +133,7 @@ namespace GymDal
 
 
             if (OnLogin != null)
-                OnLogin(this, new LoginEvent { Name = name, SubscriptionTill = max, IsObligor = (DateTime.Now > max) });
+                OnLogin(this, new LoginEvent { Name = name,State=state, SubscriptionTill = max, IsObligor = (DateTime.Now > max) });
         }
 
         public void AddOrUpdateCustomer(DataRow customer)
@@ -599,6 +599,7 @@ namespace GymDal
         public string Name { get; set; }
         public DateTime SubscriptionTill { get; set; }
         public bool IsObligor { get; set; }
+        public string State { get; set; }
 
         public override string ToString()
         {

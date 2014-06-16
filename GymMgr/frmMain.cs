@@ -40,7 +40,7 @@ namespace GymMgr
                     //Console.Beep();
                     reader.Beep();
                 }
-                notifyIcon1.ShowBalloonTip(3000, "כניסה", ev.ToString(), ev.IsObligor ? ToolTipIcon.Warning : ToolTipIcon.Info);
+                notifyIcon1.ShowBalloonTip(3000,ev.State, ev.ToString(), ev.IsObligor ? ToolTipIcon.Warning : ToolTipIcon.Info);
                 SetLastLogin(ev.Name);
 
             };
