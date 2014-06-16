@@ -283,6 +283,12 @@
     <None Include="Resources\find.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MasterCom.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MasterRD.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\add.png" />
     <None Include="Resources\money.png" />
     <None Include="Resources\user_edit.png" />
