@@ -83,7 +83,7 @@ namespace GymMgr
         {
 
             Show();
-            WindowState = FormWindowState.Normal;
+            WindowState = FormWindowState.Maximized;
         }
 
         private void frmMain_Resize(object sender, EventArgs e)
@@ -97,8 +97,8 @@ namespace GymMgr
             // splitContainer1.Panel2.Controls.Add(new ucClients() { Dock = DockStyle.Fill });
             Properties.Settings.Default.Reload();
 
-            cbBaud.SelectedItem = Baud;
-            cbPort.SelectedItem = Port;
+            cbBaud.Text = Baud.ToString();
+            cbPort.Text =Port.ToString();
             checkBoxConnect.Checked = ConnectOnStart;
             _dal = new AdoDal();
 
@@ -308,6 +308,9 @@ namespace GymMgr
                         User = _user.UserName;
                 }
             }
+
+            btnProgram.Enabled = false;
+            btnSet.Enabled = false;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -330,6 +333,11 @@ namespace GymMgr
             {
                 frm.ShowDialog();
             }
+        }
+
+        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         
