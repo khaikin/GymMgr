@@ -40,6 +40,9 @@
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>gym.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
@@ -177,6 +180,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SingleInstCode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config">
@@ -283,6 +287,7 @@
     <None Include="Resources\find.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="gym.ico" />
     <Content Include="MasterCom.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

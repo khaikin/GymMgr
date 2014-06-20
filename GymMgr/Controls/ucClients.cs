@@ -80,7 +80,7 @@ namespace GymMgr
                     client["Active"] = 1;
                     client["CreationTimeStamp"] = DateTime.Now;
                     client["CardSN"] = frm.txtCardSN.Text;
-
+                    client["Phone"] = frm.mtxtPhone.Text;
 
                     Dal.AddOrUpdateCustomer(client);
                 }
