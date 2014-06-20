@@ -51,12 +51,9 @@
             this.tsmConnect = new System.Windows.Forms.ToolStripMenuItem();
             this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnObligors = new System.Windows.Forms.Button();
             this.btnSet = new System.Windows.Forms.Button();
             this.btnSubs = new System.Windows.Forms.Button();
             this.btnProgram = new System.Windows.Forms.Button();
@@ -65,7 +62,7 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnObligors = new System.Windows.Forms.Button();
+            this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -263,37 +260,10 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contentsToolStripMenuItem,
-            this.indexToolStripMenuItem,
-            this.searchToolStripMenuItem,
-            this.toolStripSeparator5,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
-            // 
-            // contentsToolStripMenuItem
-            // 
-            this.contentsToolStripMenuItem.Name = "contentsToolStripMenuItem";
-            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.contentsToolStripMenuItem.Text = "&Contents";
-            // 
-            // indexToolStripMenuItem
-            // 
-            this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.indexToolStripMenuItem.Text = "&Index";
-            // 
-            // searchToolStripMenuItem
-            // 
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.searchToolStripMenuItem.Text = "&Search";
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(119, 6);
             // 
             // aboutToolStripMenuItem
             // 
@@ -325,6 +295,19 @@
             this.splitContainer1.Size = new System.Drawing.Size(896, 533);
             this.splitContainer1.SplitterDistance = 101;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // btnObligors
+            // 
+            this.btnObligors.Image = global::GymMgr.Properties.Resources.money;
+            this.btnObligors.Location = new System.Drawing.Point(3, 183);
+            this.btnObligors.Name = "btnObligors";
+            this.btnObligors.Size = new System.Drawing.Size(95, 54);
+            this.btnObligors.TabIndex = 5;
+            this.btnObligors.Text = "דו\'\'ח חייבים";
+            this.btnObligors.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.btnObligors.UseVisualStyleBackColor = true;
+            this.btnObligors.Visible = false;
+            this.btnObligors.Click += new System.EventHandler(this.btnObligors_Click);
             // 
             // btnSet
             // 
@@ -397,29 +380,24 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.restoreToolStripMenuItem});
+            this.restoreToolStripMenuItem,
+            this.exitToolStripMenuItem1});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(114, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(114, 48);
             // 
             // restoreToolStripMenuItem
             // 
             this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
-            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.restoreToolStripMenuItem.Text = "Restore";
             this.restoreToolStripMenuItem.Click += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
-            // btnObligors
+            // exitToolStripMenuItem1
             // 
-            this.btnObligors.Image = global::GymMgr.Properties.Resources.money;
-            this.btnObligors.Location = new System.Drawing.Point(3, 183);
-            this.btnObligors.Name = "btnObligors";
-            this.btnObligors.Size = new System.Drawing.Size(95, 54);
-            this.btnObligors.TabIndex = 5;
-            this.btnObligors.Text = "דו\'\'ח חייבים";
-            this.btnObligors.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.btnObligors.UseVisualStyleBackColor = true;
-            this.btnObligors.Visible = false;
-            this.btnObligors.Click += new System.EventHandler(this.btnObligors_Click);
+            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem1.Text = "Exit";
+            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
             // frmMain
             // 
@@ -459,10 +437,6 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem contentsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem indexToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button btnSubs;
@@ -487,6 +461,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblLastLogin;
         private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
         private System.Windows.Forms.Button btnObligors;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
 
      
     }
