@@ -51,7 +51,7 @@ namespace GymMgr
         {
 
             var sn = txtCardSN.Text;
-            if (!string.IsNullOrEmpty(sn))
+            if (!string.IsNullOrEmpty(sn) && sn!="0")
             {
                 if (CardSnExists != null)
                     if (CardSnExists(sn))
