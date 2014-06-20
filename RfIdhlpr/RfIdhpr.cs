@@ -318,14 +318,14 @@ namespace RfIdhlpr
             }
 
             Marshal.FreeHGlobal(pSnr);
-            if (!string.IsNullOrEmpty(m_cardNo) && (prevCardSn != m_cardNo || DateTime.Now.Subtract(lastread).TotalSeconds > 30) && !_postponePollingEvents)
+            if (!string.IsNullOrEmpty(m_cardNo) && prevCardSn != m_cardNo && !_postponePollingEvents)
             {
                 if (CardRead != null)
                     CardRead(this, new RfIdReadEvent { CardSN = m_cardNo });
-                prevCardSn = m_cardNo;  // prevent double reading
+
                 lastread = DateTime.Now;
             }
-
+            prevCardSn = m_cardNo;  // prevent double reading
             return m_cardNo;
         }
 
