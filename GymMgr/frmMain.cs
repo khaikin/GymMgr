@@ -41,7 +41,7 @@ namespace GymMgr
                     reader.Beep();
                 }
                 notifyIcon1.ShowBalloonTip(3000,ev.State, ev.ToString(), ev.IsObligor ? ToolTipIcon.Warning : ToolTipIcon.Info);
-                SetLastLogin(ev.Name);
+                SetLastLogin(ev.Name,ev.State);
 
             };
         }
@@ -241,17 +241,18 @@ namespace GymMgr
         }
 
 
-        private void SetLastLogin(string p)
+        private void SetLastLogin(string p, string state)
         {
-            var str = "כניסה אחרונה: {0}";
+           // var str = "{1} אחרונה: {0}";
+            var str = "פעולה אחרונה: {1}, {0} ";
             if (InvokeRequired)
                 Invoke(new MethodInvoker(delegate
                      {
-                         lblLastLogin.Text = string.Format(str, p);
+                         lblLastLogin.Text = string.Format(str, p,state);
                      }));
             else
             {
-                lblLastLogin.Text = string.Format(str, p);
+                lblLastLogin.Text = string.Format(str, p,state);
             }
         }
 
