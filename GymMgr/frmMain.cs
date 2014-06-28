@@ -14,6 +14,7 @@ using System.Threading;
 using RfIdhlpr;
 using System.Media;
 
+
 namespace GymMgr
 {
     public partial class frmMain : Form
@@ -40,11 +41,30 @@ namespace GymMgr
                     //Console.Beep();
                     reader.Beep();
                 }
-                notifyIcon1.ShowBalloonTip(3000,ev.State, ev.ToString(), ev.IsObligor ? ToolTipIcon.Warning : ToolTipIcon.Info);
-                SetLastLogin(ev.Name,ev.State);
+
+                Task.Factory.StartNew(() =>
+                {
+                    using (var frm = new frmSplash())
+                    {
+                        frm.Text = ev.State;
+                        frm.lblName.Text = ev.Name;
+                        if (ev.Image != null)
+                            frm.pbImage.Image = ev.Image;
+
+                        frm.pbSubscription.Image = ev.IsObligor ? System.Drawing.SystemIcons.Warning.ToBitmap() : SystemIcons.Information.ToBitmap();
+                        frm.lblSuscription.Text = "מנוי עד: " + ev.SubscriptionTill.ToShortDateString();
+                        frm.BackColor =ev.IsObligor ? Color.LightSalmon: Color.LightSkyBlue ;
+                        frm.ShowDialog();
+                    }
+                });
+
+                //    notifyIcon1.ShowBalloonTip(3000,ev.State, ev.ToString(), ev.IsObligor ? ToolTipIcon.Warning : ToolTipIcon.Info);
+                SetLastLogin(ev.Name, ev.State);
 
             };
         }
+
+
 
 
         private void btnClients_Click(object sender, EventArgs e)
@@ -98,7 +118,7 @@ namespace GymMgr
             Properties.Settings.Default.Reload();
 
             cbBaud.Text = Baud.ToString();
-            cbPort.Text =Port.ToString();
+            cbPort.Text = Port.ToString();
             checkBoxConnect.Checked = ConnectOnStart;
             _dal = new AdoDal();
 
@@ -243,16 +263,16 @@ namespace GymMgr
 
         private void SetLastLogin(string p, string state)
         {
-           // var str = "{1} אחרונה: {0}";
+            // var str = "{1} אחרונה: {0}";
             var str = "פעולה אחרונה: {1}, {0} ";
             if (InvokeRequired)
                 Invoke(new MethodInvoker(delegate
                      {
-                         lblLastLogin.Text = string.Format(str, p,state);
+                         lblLastLogin.Text = string.Format(str, p, state);
                      }));
             else
             {
-                lblLastLogin.Text = string.Format(str, p,state);
+                lblLastLogin.Text = string.Format(str, p, state);
             }
         }
 
@@ -341,7 +361,7 @@ namespace GymMgr
             Close();
         }
 
-        
+
 
 
 

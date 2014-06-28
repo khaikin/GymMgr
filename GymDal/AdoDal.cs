@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -113,7 +114,7 @@ namespace GymDal
             {
                 comm.Parameters.Add(new SqlParameter("@customerId", id));
                 con.Open();
-            state=    comm.ExecuteScalar().ToString();
+                state = comm.ExecuteScalar().ToString();
             }
 
             var cust = GetCustomer(id);
@@ -123,9 +124,11 @@ namespace GymDal
                     OnLogin(this, new LoginEvent { Name = "מנוי לא קיים", SubscriptionTill = DateTime.MinValue, IsObligor = true });
                 return;
             }
-
+            Image image = null;
             var name = cust.Rows[0]["FirstName"].ToString().Trim() + " " + cust.Rows[0]["LastName"].ToString().Trim();
-
+            var img = cust.Rows[0]["Image"].ToString();
+            if (!string.IsNullOrEmpty(img))
+                image = img.Base64StringToImage();
             var pay = GetPaymentsPerCustomer(id);
             DateTime max = DateTime.MinValue;
             if (pay.Rows.Count > 0)
@@ -133,7 +136,7 @@ namespace GymDal
 
 
             if (OnLogin != null)
-                OnLogin(this, new LoginEvent { Name = name,State=state, SubscriptionTill = max, IsObligor = (DateTime.Now > max) });
+                OnLogin(this, new LoginEvent { Name = name, State = state, SubscriptionTill = max, IsObligor = (DateTime.Now > max), Image = image });
         }
 
         public void AddOrUpdateCustomer(DataRow customer)
@@ -152,6 +155,7 @@ namespace GymDal
                         "            ,[Active]" +
                         "            ,[CardSN]" +
                         "            ,[Phone]" +
+                             "            ,[Image]" +
                         "            )" +
                         "      VALUES" +
                         "            (N'{0}'" +
@@ -164,6 +168,7 @@ namespace GymDal
                         "            ,'{7}'" +
                         "            ,'{9}'" +
                         "            ,'{10}'" +
+                            "            ,'{11}'" +
                         "            )";
 
 
@@ -181,6 +186,7 @@ namespace GymDal
                            "      ,[WorkoutProgram_Id] = {8}" +
                            "      ,[CardSN] = '{9}'" +
                            "      ,[Phone] = '{10}'" +
+                              "      ,[Image] = '{11}'" +
                            " WHERE id=" + customer["id"];
 
             var cul = new CultureInfo("en-US");
@@ -197,7 +203,8 @@ namespace GymDal
                  customer["Active"].ToString().ToLower() == "true" ? "1" : "0",
                  string.IsNullOrEmpty(customer["WorkoutProgram_Id"].ToString()) ? "NULL" : customer["WorkoutProgram_Id"].ToString(),
                  customer["CardSN"],
-                 customer["Phone"]
+                 customer["Phone"],
+                customer["Image"]
                 );
 
             using (var con = new SqlConnection(_connectionString))
@@ -600,6 +607,8 @@ namespace GymDal
         public DateTime SubscriptionTill { get; set; }
         public bool IsObligor { get; set; }
         public string State { get; set; }
+        public Image Image { get; set; }
+
 
         public override string ToString()
         {

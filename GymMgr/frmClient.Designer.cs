@@ -47,6 +47,8 @@
             this.txtCardSN = new System.Windows.Forms.TextBox();
             this.tbnReadOnce = new System.Windows.Forms.Button();
             this.mtxtPhone = new System.Windows.Forms.MaskedTextBox();
+            this.btnLoadImage = new System.Windows.Forms.Button();
+            this.pbClient = new System.Windows.Forms.PictureBox();
             addressLabel = new System.Windows.Forms.Label();
             birthDateLabel = new System.Windows.Forms.Label();
             emailLabel = new System.Windows.Forms.Label();
@@ -55,6 +57,7 @@
             lastNameLabel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pbClient)).BeginInit();
             this.SuspendLayout();
             // 
             // addressLabel
@@ -119,6 +122,15 @@
             label1.Size = new System.Drawing.Size(39, 13);
             label1.TabIndex = 33;
             label1.Text = "כרטיס";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(11, 169);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(41, 13);
+            label2.TabIndex = 36;
+            label2.Text = "טלפון:";
             // 
             // btnAction
             // 
@@ -207,15 +219,6 @@
             this.tbnReadOnce.UseVisualStyleBackColor = true;
             this.tbnReadOnce.Click += new System.EventHandler(this.tbnReadOnce_Click);
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(11, 169);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(41, 13);
-            label2.TabIndex = 36;
-            label2.Text = "טלפון:";
-            // 
             // mtxtPhone
             // 
             this.mtxtPhone.Location = new System.Drawing.Point(127, 168);
@@ -224,11 +227,35 @@
             this.mtxtPhone.Size = new System.Drawing.Size(200, 20);
             this.mtxtPhone.TabIndex = 37;
             // 
+            // btnLoadImage
+            // 
+            this.btnLoadImage.Location = new System.Drawing.Point(513, 188);
+            this.btnLoadImage.Name = "btnLoadImage";
+            this.btnLoadImage.Size = new System.Drawing.Size(44, 23);
+            this.btnLoadImage.TabIndex = 39;
+            this.btnLoadImage.Text = "...";
+            this.btnLoadImage.UseVisualStyleBackColor = true;
+            this.btnLoadImage.Click += new System.EventHandler(this.btnLoadImage_Click);
+            // 
+            // pbClient
+            // 
+            this.pbClient.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.pbClient.Image = global::GymMgr.Properties.Resources.user_6;
+            this.pbClient.Location = new System.Drawing.Point(343, 10);
+            this.pbClient.Name = "pbClient";
+            this.pbClient.Size = new System.Drawing.Size(215, 175);
+            this.pbClient.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbClient.TabIndex = 38;
+            this.pbClient.TabStop = false;
+  
+            // 
             // frmClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 297);
+            this.ClientSize = new System.Drawing.Size(568, 297);
+            this.Controls.Add(this.btnLoadImage);
+            this.Controls.Add(this.pbClient);
             this.Controls.Add(this.mtxtPhone);
             this.Controls.Add(label2);
             this.Controls.Add(this.tbnReadOnce);
@@ -252,6 +279,7 @@
             this.Text = "frmClient";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmClient_FormClosing);
             this.Load += new System.EventHandler(this.frmClient_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pbClient)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,5 +298,7 @@
         public System.Windows.Forms.TextBox txtCardSN;
         private System.Windows.Forms.Button tbnReadOnce;
         public System.Windows.Forms.MaskedTextBox mtxtPhone;
+        private System.Windows.Forms.Button btnLoadImage;
+        public System.Windows.Forms.PictureBox pbClient;
     }
 }

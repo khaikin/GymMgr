@@ -10,6 +10,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using RfIdhlpr;
+using GymDal;
+using System.Drawing.Drawing2D;
 
 namespace GymMgr
 {
@@ -120,6 +122,24 @@ namespace GymMgr
 
         }
 
+        private void btnLoadImage_Click(object sender, EventArgs e)
+        {
+            using (var fg = new OpenFileDialog())
+            {
+                fg.Filter = "(*.jpg)|*.jpg";
+                if (fg.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
 
+                Image img = Image.FromFile(fg.FileName);
+
+
+
+                pbClient.Image = img.ScaleImage(215,175);
+
+            }
+        }
+
+      
+
+   
     }
 }

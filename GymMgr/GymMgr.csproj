@@ -53,11 +53,15 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\BaseUc.cs">
@@ -135,6 +139,12 @@
     <Compile Include="frmSet.Designer.cs">
       <DependentUpon>frmSet.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSplash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSplash.Designer.cs">
+      <DependentUpon>frmSplash.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUsers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +215,9 @@
     <None Include="Properties\DataSources\GymDal.WorkoutSet.datasource" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmSplash.resx">
+      <DependentUpon>frmSplash.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ObligorRep.rdlc" />
     <EmbeddedResource Include="Controls\ucExercise.resx">
       <DependentUpon>ucExercise.cs</DependentUpon>
@@ -295,6 +308,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\add.png" />
+    <None Include="Resources\user-6.png" />
     <None Include="Resources\money.png" />
     <None Include="Resources\user_edit.png" />
     <None Include="Resources\cog.png" />

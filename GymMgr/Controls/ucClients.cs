@@ -46,6 +46,7 @@ namespace GymMgr
             dgvClients.Columns["id"].Visible = false;
             dgvClients.Columns["WorkoutProgram_Id"].Visible = false;
             dgvClients.Columns["Active"].Visible = false;
+            dgvClients.Columns["Image"].Visible = false;
         }
 
 
@@ -81,7 +82,7 @@ namespace GymMgr
                     client["CreationTimeStamp"] = DateTime.Now;
                     client["CardSN"] = frm.txtCardSN.Text;
                     client["Phone"] = frm.mtxtPhone.Text;
-
+                    client["Image"] = frm.pbClient.Image.ConvertTo64BaseString();
                     Dal.AddOrUpdateCustomer(client);
                 }
 
@@ -239,6 +240,9 @@ namespace GymMgr
                 frm.birthDateDateTimePicker.Value = client.Field<DateTime>("BirthDate");
                 frm.txtCardSN.Text = client.Field<string>("CardSN");
                 frm.mtxtPhone.Text = client.Field<string>("Phone");
+                var img = client.Field<string>("Image");
+                if (!string.IsNullOrEmpty(img))
+                    frm.pbClient.Image = img.Base64StringToImage();
                 frm.CardSnExists = sn =>
                 {
                     var clientID = Dal.GetClientIdByCardSn(sn);
@@ -257,6 +261,7 @@ namespace GymMgr
                 client["BirthDate"] = frm.birthDateDateTimePicker.Value;
                 client["CardSN"] = frm.txtCardSN.Text;
                 client["Phone"] = frm.mtxtPhone.Text;
+                client["Image"] = frm.pbClient.Image.ConvertTo64BaseString();
             }
 
             UpdateCustomer(client);
@@ -364,7 +369,7 @@ namespace GymMgr
 
         }
 
-      
+
 
 
     }
